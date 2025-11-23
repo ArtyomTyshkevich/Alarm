@@ -1,4 +1,4 @@
-﻿namespace Alarm.Maui
+﻿namespace MauiApp1
 {
     public partial class AppShell : Shell
     {

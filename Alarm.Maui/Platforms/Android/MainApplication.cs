@@ -1,7 +1,7 @@
 ﻿using Android.App;
 using Android.Runtime;
 
-namespace Alarm.Maui
+namespace MauiApp1
 {
     [Application]
     public class MainApplication : MauiApplication

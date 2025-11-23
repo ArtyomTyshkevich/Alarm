@@ -1,8 +1,8 @@
+using System;
 using Microsoft.Maui;
 using Microsoft.Maui.Hosting;
-using System;
 
-namespace Alarm.Maui
+namespace MauiApp1
 {
     internal class Program : MauiApplication
     {
