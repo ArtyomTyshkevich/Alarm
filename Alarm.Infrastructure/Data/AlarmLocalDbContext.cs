@@ -14,7 +14,9 @@ namespace Alarm.Infrastructure.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("data source=alarm.db");
+            string dbPath = Path.Combine(FileSystem.AppDataDirectory, "alarm.db");
+
+            optionsBuilder.UseSqlite($"Data Source={dbPath}");
         }
     }
 

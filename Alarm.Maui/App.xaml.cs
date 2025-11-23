@@ -10,16 +10,12 @@ namespace Alarm.Maui
         {
             InitializeComponent();
             _context = context;
+            context.Database.Migrate();
         }
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
             return new Window(new AppShell());
-        }
-
-        protected override void OnStart()
-        {
-            _context.Database.Migrate();
         }
     }
 }
