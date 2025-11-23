@@ -1,16 +1,10 @@
-﻿using Alarm.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
-
-namespace Alarm.Maui
+﻿namespace MauiApp1
 {
-    public partial class App : Microsoft.Maui.Controls.Application
+    public partial class App : Application
     {
-        private readonly AlarmLocalDbContext _context;
-        public App(AlarmLocalDbContext context)
+        public App()
         {
             InitializeComponent();
-            _context = context;
-            context.Database.Migrate();
         }
 
         protected override Window CreateWindow(IActivationState? activationState)

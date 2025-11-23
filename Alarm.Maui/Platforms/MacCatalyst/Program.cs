@@ -1,7 +1,7 @@
 ﻿using ObjCRuntime;
 using UIKit;
 
-namespace Alarm.Maui
+namespace MauiApp1
 {
     public class Program
     {
