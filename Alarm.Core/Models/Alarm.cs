@@ -1,4 +1,4 @@
-﻿using Alarm.Maui.Models;
+﻿using Alarm.Core.Enums;
 
 namespace Alarm.Core.Models
 {

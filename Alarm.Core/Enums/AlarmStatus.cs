@@ -1,4 +1,4 @@
-﻿namespace Alarm.Maui.Models
+﻿namespace Alarm.Core.Enums
 {
     public enum AlarmStatus
     {

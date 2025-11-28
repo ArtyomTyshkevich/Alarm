@@ -1,62 +1,53 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:Alarm.Maui.ViewModels"
              x:Class="Alarm.Maui.Views.MainPage"
              Title="Your Alarms">
 
     <VerticalStackLayout Padding="20" Spacing="20">
 
-        <!-- Заголовок -->
         <Label Text="Your Alarms"
                FontSize="32"
                HorizontalOptions="Center"
                SemanticProperties.HeadingLevel="Level1" />
 
-        <!-- Grid с будильниками -->
-        <Grid RowSpacing="10" ColumnSpacing="10">
+        <CollectionView ItemsSource="{Binding Alarms}"
+                        SelectionMode="Single"
+                        SelectionChangedCommand="{Binding OpenAlarmCommand}"
+                        SelectionChangedCommandParameter="{Binding SelectedItem}">
+            <CollectionView.Header>
+                <Grid ColumnDefinitions="2*,2*,1*,3*">
+                    <Label Text="Time" FontAttributes="Bold" />
+                    <Label Text="Mode" FontAttributes="Bold" Grid.Column="1" />
+                    <Label Text="Enabled" FontAttributes="Bold" Grid.Column="2" />
+                    <Label Text="Days" FontAttributes="Bold" Grid.Column="3" />
+                </Grid>
+            </CollectionView.Header>
 
-            <!-- Определяем колонки: Время | Режим | Вкл/Выкл -->
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*" />
-                <ColumnDefinition Width="2*" />
-                <ColumnDefinition Width="1*" />
-            </Grid.ColumnDefinitions>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid ColumnDefinitions="2*,2*,1*,3*" Padding="5">
+                        <!-- Время -->
+                        <Label Text="{Binding Time}" Grid.Column="0" />
 
-            <!-- Определяем строки: 1 заголовок + 3 будильника -->
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <!-- Заголовок -->
-                <RowDefinition Height="Auto"/>
-                <!-- Первый будильник -->
-                <RowDefinition Height="Auto"/>
-                <!-- Второй будильник -->
-                <RowDefinition Height="Auto"/>
-                <!-- Третий будильник -->
-            </Grid.RowDefinitions>
+                        <!-- Режим -->
+                        <Label Text="{Binding Mode.Name}" Grid.Column="1" />
 
-            <!-- Заголовки -->
-            <Label Text="Time" FontAttributes="Bold" Grid.Row="0" Grid.Column="0" />
-            <Label Text="Mode" FontAttributes="Bold" Grid.Row="0" Grid.Column="1" />
-            <Label Text="Enabled" FontAttributes="Bold" Grid.Row="0" Grid.Column="2" />
+                        <!-- Статус -->
+                        <Switch IsToggled="{Binding Status, Converter={StaticResource AlarmStatusToBoolConverter}}" 
+                                Grid.Column="2" />
 
-            <!-- Первый будильник -->
-            <Label Text="07:30" Grid.Row="1" Grid.Column="0" />
-            <Label Text="First" Grid.Row="1" Grid.Column="1" />
-            <Switch IsToggled="True" Grid.Row="1" Grid.Column="2" />
+                        <!-- Дни недели -->
+                        <Label Text="{Binding DaysOfWeek, Converter={StaticResource DaysOfWeekToStringConverter}}" 
+                               Grid.Column="3" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
 
-            <!-- Второй будильник -->
-            <Label Text="08:00" Grid.Row="2" Grid.Column="0" />
-            <Label Text="Second" Grid.Row="2" Grid.Column="1" />
-            <Switch IsToggled="False" Grid.Row="2" Grid.Column="2" />
-
-            <!-- Третий будильник -->
-            <Label Text="09:15" Grid.Row="3" Grid.Column="0" />
-            <Label Text="Third" Grid.Row="3" Grid.Column="1" />
-            <Switch IsToggled="True" Grid.Row="3" Grid.Column="2" />
-
-        </Grid>
-        <!-- Кнопка -->
         <Button Text="Add Alarm"
+                Command="{Binding AddAlarmCommand}"
                 HorizontalOptions="Fill"
                 BackgroundColor="#2196F3"
                 TextColor="White"
@@ -64,5 +55,4 @@
                 HeightRequest="50"/>
 
     </VerticalStackLayout>
-
 </ContentPage>

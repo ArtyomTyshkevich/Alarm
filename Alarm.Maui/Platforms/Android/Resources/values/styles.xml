@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Splash Screen Theme -->
+    <style name="Theme.Maui.Splash" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <!-- App Theme -->
+    <style name="Theme.Maui" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:datePickerStyle">@style/Widget.MaterialComponents.DatePicker</item>
+        <item name="android:timePickerStyle">@style/Widget.MaterialComponents.TimePicker</item>
+    </style>
+
+</resources>

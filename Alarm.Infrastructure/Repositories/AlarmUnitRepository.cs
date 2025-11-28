@@ -1,4 +1,8 @@
-﻿using Alarm.Application.Interfaces;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+using Alarm.Application.Interfaces.Repositories;
 using Alarm.Core.Models;
 using Alarm.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -14,40 +18,43 @@ namespace Alarm.Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<List<AlarmUnit>> GetAllAsync()
+
+        public async Task<List<AlarmUnit>> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            return await _dbContext.Alarm.ToListAsync();
+            return await _dbContext.Alarm
+                                   .Include(a => a.Mode)
+                                   .ToListAsync(cancellationToken);
+        }
+        public async Task<AlarmUnit?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+        {
+            return await _dbContext.Alarm
+                                   .Include(a => a.Mode) 
+                                   .FirstOrDefaultAsync(a => a.Id == id, cancellationToken);
         }
 
-        public async Task<AlarmUnit> GetByIdAsync(Guid id)
+        public async Task AddAsync(AlarmUnit alarm, CancellationToken cancellationToken = default)
         {
-            return await _dbContext.Alarm.FirstOrDefaultAsync(a => a.Id == id);
+            await _dbContext.Alarm.AddAsync(alarm, cancellationToken);
         }
 
-        public Task AddAsync(AlarmUnit alarm)
-        {
-            _dbContext.Alarm.Add(alarm);
-            return Task.CompletedTask;
-        }
-
-        public Task UpdateAsync(AlarmUnit alarm)
+        public Task UpdateAsync(AlarmUnit alarm, CancellationToken cancellationToken = default)
         {
             _dbContext.Alarm.Update(alarm);
             return Task.CompletedTask;
         }
 
-        public async Task DeleteAsync(Guid id)
+        public async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            var alarm = await _dbContext.Alarm.FirstOrDefaultAsync(a => a.Id == id);
+            var alarm = await _dbContext.Alarm.FirstOrDefaultAsync(a => a.Id == id, cancellationToken);
             if (alarm != null)
             {
                 _dbContext.Alarm.Remove(alarm);
             }
         }
 
-        public Task SaveChangesAsync()
+        public Task SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            return _dbContext.SaveChangesAsync();
+            return _dbContext.SaveChangesAsync(cancellationToken);
         }
     }
 }
