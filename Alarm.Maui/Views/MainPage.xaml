@@ -12,10 +12,7 @@
                HorizontalOptions="Center"
                SemanticProperties.HeadingLevel="Level1" />
 
-        <CollectionView ItemsSource="{Binding Alarms}"
-                        SelectionMode="Single"
-                        SelectionChangedCommand="{Binding OpenAlarmCommand}"
-                        SelectionChangedCommandParameter="{Binding SelectedItem}">
+        <CollectionView ItemsSource="{Binding Alarms}">
             <CollectionView.Header>
                 <Grid ColumnDefinitions="2*,2*,1*,3*">
                     <Label Text="Time" FontAttributes="Bold" />
@@ -28,6 +25,13 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid ColumnDefinitions="2*,2*,1*,3*" Padding="5">
+                        <!-- Добавляем TapGestureRecognizer для обработки нажатий -->
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:MainPageViewModel}}, Path=OpenAlarmCommand}"
+                                CommandParameter="{Binding .}" />
+                        </Grid.GestureRecognizers>
+
                         <!-- Время -->
                         <Label Text="{Binding Time}" Grid.Column="0" />
 

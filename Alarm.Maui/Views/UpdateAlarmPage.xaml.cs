@@ -1,9 +1,12 @@
+using Alarm.Maui.ViewModels;
+
 namespace Alarm.Maui.Views;
 
 public partial class UpdateAlarmPage : ContentPage
 {
-	public UpdateAlarmPage()
+	public UpdateAlarmPage(UpdateAlarmPageViewModel viewModel)
 	{
-		InitializeComponent();
-	}
+        InitializeComponent();
+        BindingContext = viewModel;
+    }
 }

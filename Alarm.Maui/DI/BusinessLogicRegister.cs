@@ -24,6 +24,8 @@ namespace Alarm.Maui.DI
             services.AddTransient<AddAlarmPageViewModel>();
             services.AddSingleton<MainPage>();
             services.AddTransient<AddAlarmPage>();
+            services.AddSingleton<UpdateAlarmPage>();
+            services.AddTransient<UpdateAlarmPageViewModel>();
         }
     }
 }

@@ -47,7 +47,7 @@ namespace Alarm.Maui.ViewModels
         {
             if (alarm == null) return;
 
-            await Shell.Current.GoToAsync($"{nameof(UpdateAlarmPage)}?AlarmId={alarm.Id}");
+            await Shell.Current.GoToAsync($"{nameof(UpdateAlarmPage)}?AlarmIdString={alarm.Id}");
         }
     }
 }
