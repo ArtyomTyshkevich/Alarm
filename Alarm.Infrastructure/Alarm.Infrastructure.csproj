@@ -38,4 +38,10 @@
 	  <ProjectReference Include="..\Alarm.Core\Alarm.Core.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Compile Update="Services\AlarmNavigationService.cs">
+	    <ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
+	  </Compile>
+	</ItemGroup>
+
 </Project>

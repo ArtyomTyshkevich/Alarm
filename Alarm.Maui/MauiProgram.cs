@@ -1,5 +1,6 @@
 ﻿using Alarm.Maui.DI;
 using Microsoft.Extensions.Logging;
+using Microsoft.Maui.Devices;
 
 namespace Alarm.Maui
 {
@@ -16,6 +17,14 @@ namespace Alarm.Maui
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
+
+            // Поставь здесь брейкпоинт, чтобы проверить платформу
+            var platform = DeviceInfo.Platform; // <- брейкпоинт
+            System.Diagnostics.Debug.WriteLine($"Current platform: {platform}");
+
+#if ANDROID
+            builder.Services.AddSingleton<IAlarmScheduler, AlarmScheduler>();
+#endif
 
             builder.Services.AddBusinessLogic();
 
